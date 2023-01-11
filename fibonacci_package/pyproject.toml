@@ -3,5 +3,5 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name= "PoP"
+name= "fibonacci"
 version = "0.1"
