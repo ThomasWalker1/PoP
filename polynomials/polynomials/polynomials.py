@@ -8,7 +8,8 @@ class Polynomial:
     
     def degree(self):
 
-        return len(self.coefficients) -1
+        return len(self.coefficients) - 1
+
     def __str__(self):
 
         coefs = self.coefficients
@@ -20,8 +21,7 @@ class Polynomial:
             terms.append(f"{'' if coefs[1]==1 else coefs[1]}x")
 
         terms += [f"{''if c==1 else c}x^{d}"
-                    for d, c in enumerate(coefs[2:], start=2) if c]
-
+                  for d, c in enumerate(coefs[2:], start=2) if c]
         return " + ".join(reversed(terms)) or "0"
 
     def __eq__(self, other):
@@ -32,14 +32,15 @@ class Polynomial:
         if isinstance(other, Polynomial):
             common = min(self.degree(), other.degree()) + 1
 
-            coefs = tuple(a + b for a, b in zip(self.coefficients, other.coefficients))
-            coefs += self.coefficients[common: ] + other.coefficients[common: ]
-
+            coefs = tuple(a + b for a, b in zip(
+                                            self.coefficients,
+                                            other.coefficients
+                                            ))
+            coefs += self.coefficients[common:] + other.coefficients[common:]
             return Polynomial(coefs)
         elif isinstance(other, Number):
-            return Polynomial((self.coefficients[0]+other,) 
-            + self.coefficients[1:])
-        
+            return Polynomial((self.coefficients[0]+other,)
+                             + self.coefficients[1:]) # noqa E128
         else:
             return NotImplemented
 
