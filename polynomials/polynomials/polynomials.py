@@ -5,7 +5,7 @@ class Polynomial:
     def __init__(self, coefs):
 
         self.coefficients = coefs
-    
+
     def degree(self):
 
         return len(self.coefficients) - 1
@@ -46,3 +46,18 @@ class Polynomial:
 
     def __radd__(self, other):
         return self + other
+
+    def __sub__(self, other):
+        if isinstance(other, Polynomial):
+            neg_other = Polynomial(tuple(
+                        -1*coef for coef in other.coefficients))
+            return self + neg_other
+        elif isinstance(other, Number):
+            neg_other = -1*other
+            return self + neg_other
+        else:
+            return NotImplemented
+
+    def __rsub__(self, other):
+        neg_Poly = Polynomial(tuple(-1*coef for coef in self.coefficients))
+        return other + neg_Poly
