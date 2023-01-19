@@ -61,3 +61,15 @@ class Polynomial:
     def __rsub__(self, other):
         neg_Poly = Polynomial(tuple(-1*coef for coef in self.coefficients))
         return other + neg_Poly
+
+    def __mul__(self, other):
+        if isinstance(other, Polynomial):
+            end_poly = Polynomial((0,))
+            for n, coef in enumerate(self.coefficients):
+                end_poly += Polynomial(tuple(0 for i in range(n))
+                         + tuple(coef*coef_2 for coef_2 in other.coefficients)) # noqa E128
+            return end_poly
+        elif isinstance(other, Number):
+            return Polynomial(tuple(other*coef for coef in self.coefficients))
+        else:
+            return NotImplemented
