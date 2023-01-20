@@ -95,3 +95,10 @@ class Polynomial:
                 coef*other**n for n, coef in enumerate(self.coefficients)])
         else:
             return NotImplemented
+
+    def dx(self):
+        if len(self.coefficients) == 1:
+            return Polynomial((0,))
+        return Polynomial(
+               tuple((n+1)*coef for n, coef in enumerate(self.coefficients[1:])
+                ))
