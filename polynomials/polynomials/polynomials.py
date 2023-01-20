@@ -1,4 +1,4 @@
-from numbers import Number
+from numbers import Number, Integral
 
 
 class Polynomial:
@@ -71,5 +71,27 @@ class Polynomial:
             return end_poly
         elif isinstance(other, Number):
             return Polynomial(tuple(other*coef for coef in self.coefficients))
+        else:
+            return NotImplemented
+
+    def __rmul__(self, other):
+        return self*other
+
+    def __pow__(self, other):
+        if isinstance(other, Integral):
+            if other == 1:
+                return self
+            else:
+                prod_poly = self*self
+                for n in range(other-2):
+                    prod_poly *= self
+                return prod_poly
+        else:
+            return NotImplemented
+
+    def __call__(self, other):
+        if isinstance(other, Number):
+            return sum([
+                coef*other**n for n, coef in enumerate(self.coefficients)])
         else:
             return NotImplemented
